@@ -35,33 +35,6 @@ function NewsDetails(props) {
 
   console.log(comments);
 
-  useEffect(() => {
-    async function getNews() {
-      axios
-        .get(
-          'https://www.bdcrictime.com/wp-json/wp/v2/posts?slug=' +
-          history.query.newsSlug +
-          '&_embed'
-        )
-        .then((res2) => {
-          setNews(res2.data[0]);
-          setLoaded(true);
-        });
-
-      axios
-        .get('https://api.shadowbangladesh.com/get_comment', {
-          params: {
-            url: history.pathname,
-          },
-        })
-        .then((res) => {
-          setComments(res.data);
-          setCommentsLoaded(true);
-        });
-    }
-    getNews();
-  }, [history.pathname, history.query.newsSlug]);
-
   const handleComment = (event) => {
     setComment(event.target.value);
   };
@@ -85,7 +58,7 @@ function NewsDetails(props) {
     <>
       <Head>
         <title>
-          {loaded ? he.decode(news.title.rendered) + ' - BDCricTime' : null}
+          {loaded ? news.title + ' - BDCricTime' : null}
         </title>
       </Head>
       <LiveScoreSlider />
@@ -108,13 +81,13 @@ function NewsDetails(props) {
                     <div className="single-post-top-blk">
                       <h3>
                         {loaded ? (
-                          he.decode(news.title.rendered)
+                          he.decode(news.title)
                         ) : (
                             <Skeleton count={2} />
                           )}
                       </h3>
                       <p>
-                        {loaded ? (
+                        {/* {loaded ? (
                           he.decode(
                             news.acf.lead_text
                               ? news.acf.lead_text
@@ -122,7 +95,7 @@ function NewsDetails(props) {
                           )
                         ) : (
                             <Skeleton count={3} />
-                          )}
+                          )} */}
                       </p>
                       <div style={{ textAlign: 'center', marginTop: '20px' }}>
                         {isMobile ? (
@@ -139,12 +112,12 @@ function NewsDetails(props) {
                       <img
                         src={
                           loaded
-                            ? news._embedded['wp:featuredmedia'][0].source_url
+                            ? news.post_image
                             : '/img/post-thumbnail.svg'
                         }
                         alt=""
                       />
-                      <p>
+                      {/* <p>
                         {loaded
                           ? he.decode(
                             news._embedded[
@@ -152,7 +125,7 @@ function NewsDetails(props) {
                             ][0].caption.rendered.replace(/(<([^>]+)>)/gi, '')
                           )
                           : null}
-                      </p>
+                      </p> */}
                     </div>
                     <div className="post-writer-blk">
                       <div className="post-writer-info">
@@ -162,8 +135,8 @@ function NewsDetails(props) {
                               <img
                                 src={
                                   loaded
-                                    ? news.acf.avatar
-                                      ? news.acf.avatar
+                                    ? news.author_image
+                                      ? news.author_image
                                       : '/img/avater.svg'
                                     : '/img/avater.svg'
                                 }
@@ -172,17 +145,17 @@ function NewsDetails(props) {
                               <div className="post-auth-info">
                                 <h3>
                                   {loaded ? (
-                                    news.acf.reporter_name ? (
-                                      news.acf.reporter_name
+                                    news.author_name ? (
+                                      news.author_name
                                     ) : (
-                                        news._embedded.author[0].name
+                                        news.author_name
                                       )
                                   ) : (
                                       <Skeleton width={100} />
                                     )}
                                   <span>
                                     {loaded ? (
-                                      news.acf.designation
+                                      news.author_biography
                                     ) : (
                                         <Skeleton width={60} />
                                       )}
@@ -201,7 +174,7 @@ function NewsDetails(props) {
                           <div className="col-md-7">
                             <div className="pst-w-right-blk">
                               <p>
-                                {loaded ? (
+                                {/* {loaded ? (
                                   <>
                                     Editor -{' '}
                                     <Link
@@ -217,13 +190,13 @@ function NewsDetails(props) {
                                   </>
                                 ) : (
                                     <Skeleton width="70%" />
-                                  )}
+                                  )} */}
                               </p>
                               <p>
                                 {loaded ? (
                                   'Posted - ' +
                                   dateformat(
-                                    news.date,
+                                    news.created,
                                     'mmmm dd, yyyy hh:MM TT'
                                   )
                                 ) : (
@@ -248,7 +221,7 @@ function NewsDetails(props) {
                       <div className="post-main-content-all">
                         <div className="row">
                           <div className="col-lg-12">
-                            {loaded ? (
+                            {/* {loaded ? (
                               news.acf.highlights ? (
                                 <div className="hlt-text">
                                   <h4>Highlights</h4>
@@ -263,11 +236,11 @@ function NewsDetails(props) {
                                   </div>
                                 </div>
                               ) : null
-                            ) : null}
+                            ) : null} */}
                             {loaded ? (
                               <div
                                 dangerouslySetInnerHTML={{
-                                  __html: news.content.rendered,
+                                  __html: news.description,
                                 }}
                               />
                             ) : (
@@ -296,9 +269,7 @@ function NewsDetails(props) {
                                   <Link
                                     href={
                                       '/redirect?url=http://twitter.com/share?text=' +
-                                        news.acf.lead_text
-                                        ? news.acf.lead_text
-                                        : news.excerpt.rendered +
+                                        news.title +
                                         '&url=' +
                                         history.pathname +
                                         '&hashtags=bdcrictime'
@@ -319,7 +290,7 @@ function NewsDetails(props) {
                         <div className="row">
                           <div className="col-lg-12">
                             <div className="tags-btn">
-                              {loaded && news._embedded['wp:term'][1][0] ? (
+                              {/* {loaded && news._embedded['wp:term'][1][0] ? (
                                 <>
                                   <span>Tags</span>
                                   {news._embedded['wp:term'][1].map(
@@ -339,7 +310,7 @@ function NewsDetails(props) {
                                       ) : null
                                   )}
                                 </>
-                              ) : null}
+                              ) : null} */}
                             </div>
                           </div>
                         </div>
@@ -459,29 +430,12 @@ function NewsDetails(props) {
 }
 export async function getServerSideProps({ req, params }) {
   try {
-    const param = {
-      params: { token: '437214169d9be2a73e91d22f76f68b52' },
-    };
-    const url =
-      'https://www.bdcrictime.com/wp-json/wp/v2/posts?slug=' +
-      params.newsSlug +
-      '&_embed';
-    const res = await axios.get(url, param);
-
-    const res2 = await axios.get(
-      'https://api.shadowbangladesh.com/get_comment',
-      {
-        params: {
-          url: req.url,
-          token: '437214169d9be2a73e91d22f76f68b52',
-        },
-      }
-    );
+    const res = await axios.get('http://128.199.31.164/api/news-details/'+params.newsSlug, { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } });
 
     return {
       props: {
-        news: res.data[0],
-        comment: res2.data,
+        news: res.data.data.post,
+        comment: res.data.data.all_comment,
         commntsLoaded: true,
         loaded: true,
       },

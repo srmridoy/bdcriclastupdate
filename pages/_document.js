@@ -24,8 +24,8 @@ export default class CustomDocument extends Document {
             crossOrigin="anonymous"
           ></script>
 
-          <script src="../src/assets/js/jquery.sticky-nav-1.1.0.min.js" />
-          <script src="../src/assets/js/main.js" />
+          <script src="/assets/js/jquery.sticky-nav-1.1.0.min.js" />
+          <script src="/assets/js/main.js" />
           <script
             src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
             integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="

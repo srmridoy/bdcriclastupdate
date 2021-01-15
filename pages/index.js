@@ -9,7 +9,7 @@ import PlayersData from '../src/Components/PlayersData';
 import ICCTeamRanking from '../src/Components/ICCTeamRanking';
 import Advertisement from '../src/Components/Advertisement';
 import LeadSection from '../src/pages/LeadSection';
-import MostPopular from '../src/pages/MostPopular';
+import MostPopular from '../src/Components/MostPopular';
 import RelatedNews from '../src/pages/RelatedNews';
 import FeaturedCategory from '../src/pages/FeaturedCategory';
 import NewsUpdates from '../src/pages/NewsUpdates';
@@ -121,22 +121,13 @@ export async function getServerSideProps() {
     });
     var final = filtered.length > 3 ? filtered : res.data.response.items;
 
-    var res1 = await axios.get(
-      'https://www.bdcrictime.com/wp-json/acf/v3/posts/152839',
-      param
-    );
+    var res2 = await axios.get('http://128.199.31.164/api/selected-home-page-news?limit=1&offset=0', { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } });
 
-    var res2 = await axios.get(
-      'https://www.bdcrictime.com/wp-json/wp/v2/posts/' +
-        res1.data.acf.top_news[0] +
-        '?_embed',
-      param
-    );
 
     return {
       props: {
         liveMatches: final.reverse(),
-        leadNews: res2.data,
+        leadNews: res2.data.data[0],
         loaded: true,
       },
     };

@@ -8,11 +8,9 @@ function Trending(props) {
 
   async function getNews() {
     axios
-      .get('https://www.bdcrictime.com/wp-json/wp/v2/posts?per_page=2&_embed', {
-        params: { token: '437214169d9be2a73e91d22f76f68b52' },
-      })
+      .get('http://128.199.31.164/api/news-list', { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } })
       .then((res) => {
-        setNews(res.data);
+        setNews(res.data.data.news);
         setLoaded(true);
       })
       .catch((err) => console.log('Error in Trending' + err.message));
@@ -33,14 +31,14 @@ function Trending(props) {
               <NewsCards
                 key={index}
                 format="small-side"
-                headline={loaded ? news.title.rendered : null}
+                headline={loaded ? news.title : null}
                 thumbnail={
                   loaded
-                    ? news._embedded['wp:featuredmedia'][0].source_url
+                    ? news.post_image
                     : null
                 }
                 id={news.id}
-                slug={news.slug}
+                slug={news.post_url}
               />
             ))}
           </ul>

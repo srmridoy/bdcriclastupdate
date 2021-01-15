@@ -36,8 +36,8 @@ function News(props) {
                       </li>
                       {props.menus.map((menu, index) => (
                         <li key={index}>
-                          <Link href={"/news/"+menu.object_id+"/"+menu.url.replace("https://www.bdcrictime.com/", "")}>
-                              {menu.title}
+                          <Link href={"/news/"+menu.id+"/"+menu.slug}>
+                              {menu.name}
                           </Link>
                         </li>
                       ))}
@@ -55,27 +55,19 @@ function News(props) {
                             <div key={index} className="col-lg-4 col-md-6">
                               <NewsCards
                                 format="boxed-down"
-                                headline={loaded ? news.title.rendered : null}
+                                headline={loaded ? news.title : null}
                                 thumbnail={
                                   loaded
-                                    ? news._embedded['wp:featuredmedia'][0]
-                                        .source_url
+                                    ? news.post_image
                                     : null
                                 }
                                 leadText={
                                   loaded
-                                    ? news.acf.lead_text
-                                      ? news.acf.lead_text
-                                      : he.decode(
-                                          news.excerpt.rendered.replace(
-                                            /(<([^>]+)>)/gi,
-                                            ''
-                                          )
-                                        )
+                                    ? news.description
                                     : null
                                 }
                                 id={news.id}
-                                slug={news.slug}
+                                slug={news.post_url}
                               />
                             </div>
                           ) : null
@@ -86,27 +78,19 @@ function News(props) {
                           <NewsCards
                             key={index}
                             format="boxed-side"
-                            headline={loaded ? news.title.rendered : null}
+                            headline={loaded ? news.title : null}
                             thumbnail={
                               loaded
-                                ? news._embedded['wp:featuredmedia'][0]
-                                    .source_url
+                                ? news.post_image
                                 : null
                             }
                             leadText={
                               loaded
-                                ? news.acf.lead_text
-                                  ? news.acf.lead_text
-                                  : he.decode(
-                                      news.excerpt.rendered.replace(
-                                        /(<([^>]+)>)/gi,
-                                        ''
-                                      )
-                                    )
+                                ? news.description
                                 : null
                             }
                             id={news.id}
-                            slug={news.slug}
+                            slug={news.post_url}
                           />
                         ) : null
                       )}
@@ -144,14 +128,13 @@ function News(props) {
 }
 export async function getServerSideProps() {
   try {
-    const url = 'https://www.bdcrictime.com/wp-json/wp/v2/menus';
-    const res = await axios.get(url);
-    const news = await axios.get('https://www.bdcrictime.com/wp-json/wp/v2/posts?_embed');
+    const res = await axios.get('http://128.199.31.164/api/category-list', { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } });
+    const news = await axios.get('http://128.199.31.164/api/news-list', { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } });
 
     return {
       props: {
-        menus: res.data,
-        news: news.data,
+        menus: res.data.data,
+        news: news.data.data.news,
         loaded: true,
       },
     };
