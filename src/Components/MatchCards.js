@@ -23,7 +23,9 @@ function SliderItem(props) {
   const history = useRouter();
   return (
     <>
-      <Link href={props.id ? '/match/details/' + props.id : ''}>
+      <Link href={props.id ? 
+        props.statusCode === 1 ? '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/line-ups' : props.statusCode === 3 ? '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/live' : '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/scorecard'
+      : ''}>
         <div className="item">
           {props.id &&
           props.team1 &&
@@ -106,10 +108,8 @@ function Default(props) {
           <Link
             href={
               props.id
-                ? '/match/details/' +
-                  props.id +
-                  '/' +
-                  props.title.toLowerCase().split(' ').join('-')
+                ? 
+                  props.statusCode === 1 ? '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/line-ups' : props.statusCode === 3 ? '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/live' : '/match/details/' + props.id + '/' + props.title.toLowerCase().split(' ').join('-') + '/scorecard'
                 : ''
             }
           >

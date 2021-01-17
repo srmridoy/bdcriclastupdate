@@ -158,10 +158,7 @@ function LiveScoreSlider(props) {
                   <Link
                       key={index + index}
                       href={
-                        '/match/details/' +
-                        item.match_id +
-                        '/' +
-                        item.title.toLowerCase().split(' ').join('-')
+                        item.status === 1 ? '/match/details/' + item.match_id + '/' + item.title.toLowerCase().split(' ').join('-') + '/line-ups' : item.status === 3 ? '/match/details/' + item.match_id + '/' + item.title.toLowerCase().split(' ').join('-') + '/live' : '/match/details/' + item.match_id + '/' + item.title.toLowerCase().split(' ').join('-') + '/scorecard'
                       }
                       className="item"
                   >

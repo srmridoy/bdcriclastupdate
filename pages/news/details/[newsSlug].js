@@ -7,16 +7,16 @@ import Skeleton from 'react-loading-skeleton';
 import dateformat from 'dateformat';
 import he from 'he';
 
-import Advertisement from '../src/Components/Advertisement';
-import LiveScoreSlider from '../src/Components/LiveScoreSlider';
-import ICCTeamRanking from '../src/Components/ICCTeamRanking';
-import MostPopular from '../src/Components/MostPopular';
-import Trending from '../src/Components/Trending';
-import PlayersData from '../src/Components/PlayersData';
-import LatestNews from '../src/Components/LatestNews';
-import RelatedNews from '../src/pages/RelatedNews';
+import Advertisement from '../../../src/Components/Advertisement';
+import LiveScoreSlider from '../../../src/Components/LiveScoreSlider';
+import ICCTeamRanking from '../../../src/Components/ICCTeamRanking';
+import MostPopular from '../../../src/Components/MostPopular';
+import Trending from '../../../src/Components/Trending';
+import PlayersData from '../../../src/Components/PlayersData';
+import LatestNews from '../../../src/Components/LatestNews';
+import RelatedNews from '../../../src/pages/RelatedNews';
 import { isMobile } from 'react-device-detect';
-import Error from '../src/pages/Error';
+import Error from '../../../src/pages/Error';
 
 function NewsDetails(props) {
   //IF THIS(error) PROPS AVAILABLE YOU CAN RENDER ERROR VIEW ANYWHERE
@@ -53,6 +53,23 @@ function NewsDetails(props) {
         setComments(res.data);
       });
   };
+
+  useEffect(() => {
+    async function getNews() {
+      axios
+        .get(
+          'http://128.199.31.164/api/news-details/' + history.query.newsSlug, { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'app-secret': 'BDCRICTIMEALLAPIRESPONSESECURITY' } }
+        )
+        .then((res2) => {
+          setNews(res2.data.data.post);
+          setComments(res2.data.data.all_comment);
+          setLoaded(true);
+          setCommentsLoaded(true);
+        });
+    }
+    getNews();
+  }, [history.query.newsSlug]);
+
 
   return (
     <>

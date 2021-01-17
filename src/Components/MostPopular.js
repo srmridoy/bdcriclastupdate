@@ -77,7 +77,7 @@ function MostPopular() {
                 {newstodayloaded ? newstoday.map((item, index) =>
                   <li>
                     <span>{++index}</span>
-                    <Link href={"/"+item.post_url}>
+                    <Link href={"/news/details/"+item.post_url}>
                       <a>
                         <p>{item.title}</p>
                       </a>
@@ -93,7 +93,7 @@ function MostPopular() {
                 {newsweekloaded ? newsweek.map((item, index) =>
                   <li>
                     <span>{++index}</span>
-                    <Link href={"/"+item.post_url}>
+                    <Link href={"/news/details/"+item.post_url}>
                       <a>
                         <p>{item.title}</p>
                       </a>
@@ -109,7 +109,7 @@ function MostPopular() {
                 {newsmonthloaded ? newsmonth.map((item, index) =>
                   <li>
                     <span>{++index}</span>
-                    <Link href={"/"+item.post_url}>
+                    <Link href={"/news/details/"+item.post_url}>
                       <a>
                         <p>{item.title}</p>
                       </a>

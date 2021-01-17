@@ -34,7 +34,7 @@ function Lead(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -52,7 +52,7 @@ function Lead(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -69,7 +69,7 @@ function Lead(props) {
                 <Link
                   href={
                     props.id && props.slug
-                      ? '/' + props.slug
+                      ? '/news/details/' + props.slug
                       : ''
                   }
                 >
@@ -98,7 +98,7 @@ function BoxedDown(props) {
             <Link
               href={
                 props.id && props.slug
-                  ? '/' + props.slug
+                  ? '/news/details/' + props.slug
                   : ''
               }
             >
@@ -118,7 +118,7 @@ function BoxedDown(props) {
             <Link
               href={
                 props.id && props.slug
-                  ? '/' + props.slug
+                  ? '/news/details/' + props.slug
                   : ''
               }
             >
@@ -143,7 +143,7 @@ function BoxedDown(props) {
               <Link
                 href={
                   props.id && props.slug
-                    ? '/' + props.slug
+                    ? '/news/details/' + props.slug
                     : ''
                 }
               >
@@ -171,7 +171,7 @@ function BoxedSide(props) {
                 <Link
                   href={
                     props.id && props.slug
-                      ? '/' + props.slug
+                      ? '/news/details/' + props.slug
                       : ''
                   }
                 >
@@ -191,7 +191,7 @@ function BoxedSide(props) {
                 <Link
                   href={
                     props.id && props.slug
-                      ? '/' + props.slug
+                      ? '/news/details/' + props.slug
                       : ''
                   }
                 >
@@ -215,7 +215,7 @@ function BoxedSide(props) {
                 <Link
                   href={
                     props.id && props.slug
-                      ? '/' + props.slug
+                      ? '/news/details/' + props.slug
                       : ''
                   }
                 >
@@ -238,7 +238,7 @@ function SmallDown(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -258,7 +258,7 @@ function SmallDown(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -293,7 +293,7 @@ function SmallSide(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -313,7 +313,7 @@ function SmallSide(props) {
           <Link
             href={
               props.id && props.slug
-                ? '/' + props.slug
+                ? '/news/details/' + props.slug
                 : ''
             }
           >
@@ -343,7 +343,7 @@ function WithCount(props) {
         <Link
           href={
             props.id && props.slug
-              ? '/' + props.slug
+              ? '/news/details/' + props.slug
               : ''
           }
         >
